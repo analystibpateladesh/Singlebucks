@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+<title>Singlebucks — Cold Coffee & Cupcakes | SUKOON@2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --choco-dark:   #2C1A0E;
+    --choco-mid:    #4A2C17;
+    --choco-warm:   #6B3D1E;
+    --choco-light:  #9B5E2A;
+    --choco-accent: #C47B3A;
+    --cream:        #FAF5EF;
+    --cream-warm:   #F2E8D9;
+    --cream-deep:   #E8D8C4;
+    --white:        #FFFFFF;
+    --text:         #1C0F06;
+    --muted:        #8B6B52;
+    --border:       #D9C4AD;
+    --radius:       18px;
+    --shadow:       0 6px 32px rgba(44,26,14,0.12);
+    --shadow-hover: 0 12px 48px rgba(44,26,14,0.22);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream-warm); }
+  ::-webkit-scrollbar-thumb { background: var(--choco-accent); border-radius: 3px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp    { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn    { from{opacity:0} to{opacity:1} }
+  @keyframes slideInR  { from{opacity:0;transform:translateX(32px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes popIn     { from{transform:scale(0.82);opacity:0} to{transform:scale(1);opacity:1} }
+  @keyframes slideIn   { from{transform:translateX(100%)} to{transform:translateX(0)} }
+  @keyframes pulse     { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+  @keyframes float     { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @keyframes offerBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+  @keyframes badgePop  { 0%{transform:scale(1)} 40%{transform:scale(1.5)} 100%{transform:scale(1)} }
+  @keyframes scaleIn   { from{transform:scale(0.88);opacity:0} to{transform:scale(1);opacity:1} }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--choco-dark); padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px; position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.35);
+    animation: fadeIn 0.5s ease both;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .logo-img-wrap {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--choco-mid); border: 2px solid var(--choco-accent);
+    overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .logo-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .logo-placeholder { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 900; color: var(--choco-accent); }
+  .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 700; color: var(--white); letter-spacing: 0.02em; }
+  .nav-brand span { color: var(--choco-accent); }
+  .nav-brand-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tagline */
+.nav-tagline {
+  font-size: 9px;
+  letter-spacing: 3px;   /* spaced out look */
+  color: #555;
+  margin-top: 2px;
+  font-weight: 500;
+}
+.nav-brand:hover {
+  opacity: 0.85;
+  transition: 0.3s;
+}
+  .nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.03em; transition: color 0.2s; text-transform: uppercase; }
+  .nav-links a:hover { color: var(--choco-accent); }
+  .nav-offers-btn {
+    background: linear-gradient(135deg, #e8a020, var(--choco-accent));
+    color: var(--white); border: none; border-radius: 24px;
+    padding: 7px 16px; font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 700;
+    cursor: pointer; letter-spacing: 0.04em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 6px;
+    animation: offerBounce 2.5s ease-in-out infinite;
+    box-shadow: 0 2px 12px rgba(200,130,30,0.45);
+    transition: transform 0.2s;
+  }
+  .nav-offers-btn:hover { transform: scale(1.06); animation: none; }
+  .offer-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--white); animation: pulse 1.5s infinite; }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .nav-cart {
+    background: var(--choco-accent); color: var(--white); border: none; border-radius: 11px;
+    padding: 5px 8px; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 10px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cart:hover { background: var(--choco-light); transform: translateY(-1px); }
+  .cart-badge {
+    background: var(--white); color: var(--choco-dark); border-radius: 50%;
+    width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+  }
+  .cart-badge.bump { animation: badgePop 0.35s ease; }
+
+  /* Mobile secondary nav */
+  .mobile-nav-bar {
+    display: none; background: var(--choco-mid);
+    padding: 0.55rem 1.2rem; justify-content: center; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .mobile-nav-bar a {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.78rem;
+    font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px; transition: all 0.2s;
+  }
+  .mobile-nav-bar a:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+  .mobile-offers-btn {
+    background: linear-gradient(135deg, #e8a020, var(--choco-accent)); color: var(--white);
+    border: none; border-radius: 20px; padding: 4px 14px; font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.04em;
+    text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-nav-bar { display: flex; }
+  }
+
+  /* ── OFFERS MODAL ── */
+  .offers-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    z-index: 250; display: none; align-items: center; justify-content: center; padding: 1.5rem;
+  }
+  .offers-overlay.open { display: flex; }
+  .offers-panel {
+    background: var(--white); border-radius: 24px; max-width: 520px; width: 100%;
+    box-shadow: 0 16px 60px rgba(0,0,0,0.35);
+    animation: popIn 0.3s cubic-bezier(0.22,1,0.36,1); overflow: hidden;
+    max-height: 90vh; display: flex; flex-direction: column;
+  }
+  .offers-panel-head {
+    background: linear-gradient(135deg, var(--choco-dark), var(--choco-mid));
+    padding: 1.4rem 1.8rem; display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .offers-panel-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 900; color: var(--white); }
+  .offers-panel-head h3 span { color: var(--choco-accent); }
+  .offers-close-btn {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--white);
+    width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+  }
+  .offers-close-btn:hover { background: rgba(255,255,255,0.22); }
+  .offers-list { padding: 1.5rem 1.8rem; display: flex; flex-direction: column; gap: 1rem; overflow-y: auto; }
+  .offer-card {
+    background: var(--cream-warm); border-radius: 14px; padding: 1.1rem 1.4rem;
+    border: 1.5px solid var(--border); display: flex; align-items: flex-start; gap: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .offer-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .offer-tag {
+    background: linear-gradient(135deg, var(--choco-dark), var(--choco-accent));
+    color: var(--white); border-radius: 10px; padding: 0.5rem 0.8rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 900;
+    text-align: center; min-width: 64px; line-height: 1.1; flex-shrink: 0;
+  }
+  .offer-tag small { display: block; font-family: 'Outfit', sans-serif; font-size: 0.6rem; font-weight: 600; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px; }
+  .offer-info h4 { font-weight: 700; color: var(--choco-dark); font-size: 0.95rem; margin-bottom: 0.25rem; }
+  .offer-info p { color: var(--muted); font-size: 0.82rem; line-height: 1.5; font-weight: 300; }
+  .offer-code { display: inline-block; background: var(--choco-dark); color: var(--choco-accent); border-radius: 8px; padding: 2px 10px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 0.4rem; }
+
+  /* Hero offer popup — bottom right float */
+  .hero-offer-popup {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 90;
+    background: var(--white); border-radius: 18px;
+    box-shadow: 0 8px 40px rgba(44,26,14,0.25); border: 1.5px solid var(--choco-accent);
+    max-width: 280px; overflow: hidden;
+    animation: scaleIn 0.4s cubic-bezier(0.22,1,0.36,1) 1.5s both;
+  }
+  .hero-offer-popup.hidden { display: none; }
+  .popup-head {
+    background: linear-gradient(135deg, var(--choco-dark), var(--choco-accent));
+    padding: 0.7rem 1rem; display: flex; align-items: center; justify-content: space-between;
+  }
+  .popup-head span { font-size: 0.72rem; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1.5px; }
+  .popup-close {
+    background: rgba(255,255,255,0.15); border: none; color: var(--white);
+    width: 22px; height: 22px; border-radius: 50%; cursor: pointer; font-size: 0.75rem;
+    display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+  }
+  .popup-close:hover { background: rgba(255,255,255,0.3); }
+  .popup-body { padding: 0.9rem 1rem; }
+  .popup-body h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 900; color: var(--choco-dark); margin-bottom: 0.3rem; }
+  .popup-body p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; font-weight: 300; }
+  .popup-cta {
+    display: block; background: var(--choco-dark); color: var(--white); text-align: center;
+    padding: 9px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; width: 100%;
+    font-family: 'Outfit', sans-serif; transition: background 0.2s; letter-spacing: 0.03em;
+  }
+  .popup-cta:hover { background: var(--choco-accent); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--choco-dark); min-height: 88vh;
+    display: grid; grid-template-columns: 1fr 1fr; align-items: center; overflow: hidden; position: relative;
+  }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 70% 50%,rgba(196,123,58,0.12) 0%,transparent 65%); pointer-events:none; }
+  .hero-left { padding: 5rem 3.5rem 5rem 5rem; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(196,123,58,0.15); border: 1px solid rgba(196,123,58,0.4);
+    color: var(--choco-accent); padding: 7px 18px; border-radius: 32px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.8rem;
+    animation: fadeUp 0.7s 0.3s both;
+  }
+  .hero-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--choco-accent); animation:pulse 2s infinite; }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem,5vw,4.8rem);
+    font-weight: 900; color: var(--white); line-height: 1.05; margin-bottom: 1.4rem; letter-spacing: -0.01em;
+    animation: fadeUp 0.7s 0.45s both;
+  }
+  .hero h1 em { color: var(--choco-accent); font-style: normal; }
+  .hero-sub { color:rgba(255,255,255,0.6); font-size:1.05rem; font-weight:300; line-height:1.7; max-width:440px; margin-bottom:2.5rem; animation:fadeUp 0.7s 0.6s both; }
+  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; animation:fadeUp 0.7s 0.75s both; }
+  .btn-primary { background:var(--choco-accent); color:var(--white); border:none; border-radius:36px; padding:15px 36px; font-family:'Outfit',sans-serif; font-size:0.95rem; font-weight:600; cursor:pointer; transition:background 0.2s,transform 0.15s; letter-spacing:0.02em; }
+  .btn-primary:hover { background:var(--choco-light); transform:translateY(-2px); }
+  .btn-outline { background:transparent; color:var(--white); border:1.5px solid rgba(255,255,255,0.3); border-radius:36px; padding:15px 36px; font-family:'Outfit',sans-serif; font-size:0.95rem; font-weight:500; cursor:pointer; transition:all 0.2s; letter-spacing:0.02em; }
+  .btn-outline:hover { border-color:var(--white); background:rgba(255,255,255,0.07); }
+  .hero-right { position:relative; height:88vh; display:flex; align-items:center; justify-content:center; animation:slideInR 0.9s 0.5s both; }
+  .hero-img-frame { width:88%; max-width:480px; aspect-ratio:4/5; background:transparent; border-radius:28px 28px 120px 28px; overflow:hidden; position:relative; border:transparent; box-shadow:transparent; }
+  .hero-img-frame img { width:100%; height:100%; object-fit:cover; }
+  .hero-img-placeholder { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; color:rgba(196,123,58,0.5); }
+  .hero-img-placeholder .img-icon { width:64px; height:64px; border:2px dashed rgba(196,123,58,0.4); border-radius:12px; display:flex; align-items:center; justify-content:center; }
+  .hero-img-placeholder p { font-size:0.82rem; opacity:0.6; text-align:center; padding:0 2rem; line-height:1.5; }
+  .hero-float-card { position:absolute; bottom:10%; left:-5%; background:var(--white); border-radius:16px; padding:1rem 1.4rem; box-shadow:0 8px 32px rgba(0,0,0,0.25); display:flex; align-items:center; gap:12px; animation:float 3s ease-in-out infinite; }
+  .float-dot { width:10px; height:10px; border-radius:50%; background:#22C55E; flex-shrink:0; }
+  .float-text { font-size:0.78rem; font-weight:600; color:var(--text); }
+  .float-sub { font-size:0.7rem; color:var(--muted); margin-top:2px; }
+
+  /* ── STATS BAR ── */
+  .stats-bar { background:var(--choco-mid); display:flex; justify-content:center; flex-wrap:wrap; }
+  .stat-item { flex:1; min-width:160px; padding:1.5rem 2rem; text-align:center; color:white; border-right:1px solid rgba(255,255,255,0.1); }
+  .stat-item:last-child { border-right:none; }
+  .stat-num { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; color:var(--choco-accent); line-height:1; }
+  .stat-label { font-size:0.72rem; opacity:0.65; text-transform:uppercase; letter-spacing:1.5px; margin-top:4px; }
+
+  /* ── SECTION ── */
+  .section-wrap { padding:5rem 2rem; max-width:1180px; margin:0 auto; }
+  .section-header { text-align:center; margin-bottom:3rem; }
+  .section-eyebrow { display:inline-block; color:var(--choco-accent); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:3px; margin-bottom:0.8rem; }
+  .section-header h2 { font-family:'Cormorant Garamond',serif; font-size:2.6rem; font-weight:900; color:var(--choco-dark); margin-bottom:0.6rem; letter-spacing:-0.01em; }
+  .section-header p { color:var(--muted); font-size:0.95rem; font-weight:300; }
+
+  /* ── TABS ── */
+  .tabs { display:flex; gap:0.5rem; justify-content:center; margin-bottom:3rem; flex-wrap:wrap; }
+  .tab-btn { background:var(--white); border:1.5px solid var(--border); border-radius:32px; padding:9px 22px; font-family:'Outfit',sans-serif; font-size:0.85rem; font-weight:500; cursor:pointer; transition:all 0.2s; color:var(--muted); letter-spacing:0.02em; }
+  .tab-btn.active { background:var(--choco-dark); border-color:var(--choco-dark); color:var(--white); }
+  .tab-btn:hover:not(.active) { background:var(--cream-warm); border-color:var(--choco-accent); color:var(--choco-dark); }
+
+  /* ── MENU GRID ── */
+  .menu-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(255px,1fr)); gap:1.8rem; }
+  .menu-card { background:var(--white); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); transition:transform 0.25s,box-shadow 0.25s; display:flex; flex-direction:column; border:1px solid rgba(196,123,58,0.1); opacity:0; animation:fadeUp 0.5s both; }
+  .menu-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-hover); }
+  .menu-card-img { height:175px; position:relative; background:var(--cream-warm); overflow:hidden; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .menu-card-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.35s; }
+  .menu-card:hover .menu-card-img img { transform:scale(1.06); }
+  .img-placeholder { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:var(--choco-accent); }
+  .img-placeholder .ph-icon { width:52px; height:52px; border:2px dashed rgba(196,123,58,0.4); border-radius:10px; display:flex; align-items:center; justify-content:center; opacity:0.7; }
+  .img-placeholder span { font-size:0.75rem; color:var(--muted); opacity:0.7; }
+  .badge { position:absolute; top:12px; left:12px; background:var(--choco-dark); color:var(--choco-accent); font-size:0.65rem; font-weight:700; padding:3px 10px; border-radius:10px; text-transform:uppercase; letter-spacing:0.8px; }
+  .badge.popular { background:var(--choco-accent); color:var(--white); }
+  .menu-card-body { padding:1.3rem; flex:1; display:flex; flex-direction:column; }
+  .menu-card-name { font-weight:600; font-size:1rem; color:var(--choco-dark); margin-bottom:0.3rem; }
+  .menu-card-desc { color:var(--muted); font-size:0.82rem; margin-bottom:1.2rem; flex:1; line-height:1.5; font-weight:300; }
+  .menu-card-footer { display:flex; align-items:center; justify-content:space-between; }
+  .price { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:700; color:var(--choco-warm); }
+  .add-btn { background:var(--choco-dark); color:var(--white); border:none; border-radius:24px; padding:8px 20px; font-size:0.82rem; font-weight:600; cursor:pointer; font-family:'Outfit',sans-serif; transition:background 0.2s,transform 0.1s; letter-spacing:0.02em; }
+  .add-btn:hover { background:var(--choco-accent); transform:scale(1.03); }
+  .add-btn:active { transform:scale(0.97); }
+
+  /* ── HOW IT WORKS ── */
+  .how-section { background:var(--choco-dark); padding:5rem 2rem; }
+  .how-inner { max-width:1100px; margin:0 auto; }
+  .how-section .section-header h2 { color:var(--white); }
+  .how-section .section-header p { color:rgba(255,255,255,0.5); }
+  .how-section .section-eyebrow { color:var(--choco-accent); }
+  .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; }
+  .step { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); padding:2rem 1.5rem; text-align:center; transition:background 0.2s,transform 0.2s; }
+  .step:hover { background:rgba(255,255,255,0.09); transform:translateY(-3px); }
+  .step-num { width:48px; height:48px; border-radius:50%; background:var(--choco-accent); color:var(--white); font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:700; display:flex; align-items:center; justify-content:center; margin:0 auto 1.2rem; }
+  .step h4 { color:var(--white); font-weight:600; font-size:0.95rem; margin-bottom:0.4rem; }
+  .step p { color:rgba(255,255,255,0.5); font-size:0.82rem; line-height:1.5; font-weight:300; }
+
+  /* ── ABOUT ── */
+  .about-section { background:var(--cream-warm); }
+  .about-inner { max-width:1100px; margin:0 auto; padding:5rem 2rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+  .about-img { aspect-ratio:4/5; background:transparent; border-radius:28px 120px 28px 28px; overflow:hidden; position:relative; border:transparent; display:flex; align-items:center; justify-content:center; }
+  .about-img img { width:100%; height:100%; object-fit:cover; }
+  .about-img-ph { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; color:var(--muted); }
+  .about-img-ph .ph-box { width:72px; height:72px; border:2px dashed var(--border); border-radius:14px; display:flex; align-items:center; justify-content:center; }
+  .about-img-ph p { font-size:0.82rem; opacity:0.6; text-align:center; padding:0 2rem; line-height:1.5; }
+  .about-text .section-eyebrow { display:block; margin-bottom:0.5rem; }
+  .about-text h2 { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:900; color:var(--choco-dark); margin-bottom:1.2rem; line-height:1.1; }
+  .about-text h2 span { color:var(--choco-accent); }
+  .about-text p { color:var(--muted); font-size:0.95rem; line-height:1.8; font-weight:300; margin-bottom:1rem; }
+  .about-pills { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:1.8rem; }
+  .pill { background:var(--white); border:1.5px solid var(--border); border-radius:24px; padding:7px 16px; font-size:0.8rem; font-weight:500; color:var(--choco-warm); }
+
+  /* ══════════════════════════════════
+     CART SIDEBAR  — keyboard-safe layout
+  ══════════════════════════════════ */
+  .cart-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 200; display: none; align-items: flex-start; justify-content: flex-end;
+  }
+  .cart-overlay.open { display: flex; }
+  .cart-sidebar {
+    background: var(--white); width: 400px; max-width: 96vw;
+    /* Use dynamic viewport height — shrinks when keyboard appears */
+    height: 100dvh;
+    display: flex; flex-direction: column;
+    box-shadow: -8px 0 40px rgba(0,0,0,0.2);
+    animation: slideIn 0.28s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cart-header { background:var(--choco-dark); color:var(--white); padding:1.3rem 1.8rem; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+  .cart-header h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; }
+  .close-btn { background:none; border:none; color:rgba(255,255,255,0.7); font-size:1.5rem; cursor:pointer; line-height:1; transition:color 0.2s; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
+  .close-btn:hover { color:var(--white); }
+  .cart-items { flex:1; overflow-y:auto; padding:1rem 1.6rem; min-height:0; }
+  .cart-empty { text-align:center; padding:3.5rem 1rem; color:var(--muted); }
+  .empty-bag { width:64px; height:64px; border:2px dashed var(--border); border-radius:16px; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center; color:var(--border); }
+  .cart-empty p { font-size:0.9rem; line-height:1.6; font-weight:300; }
+  .cart-item { display:flex; gap:1rem; padding:1rem 0; border-bottom:1px solid var(--cream-warm); align-items:center; }
+  .cart-item-thumb { width:52px; height:52px; border-radius:12px; background:var(--cream-warm); flex-shrink:0; display:flex; align-items:center; justify-content:center; color:var(--choco-accent); border:1px solid var(--border); overflow:hidden; }
+  .cart-item-thumb img { width:100%; height:100%; object-fit:cover; }
+  .cart-item-info { flex:1; }
+  .cart-item-name { font-weight:600; font-size:0.9rem; color:var(--choco-dark); }
+  .cart-item-price { color:var(--choco-accent); font-size:0.83rem; font-weight:500; margin-top:2px; }
+  .qty-controls { display:flex; align-items:center; gap:0.5rem; }
+  .qty-btn { background:var(--cream-warm); border:1px solid var(--border); border-radius:50%; width:28px; height:28px; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:background 0.15s; font-family:'Outfit',sans-serif; color:var(--choco-dark); font-weight:600; }
+  .qty-btn:hover { background:var(--choco-dark); color:var(--white); border-color:var(--choco-dark); }
+  .qty-val { font-weight:700; font-size:0.9rem; min-width:20px; text-align:center; color:var(--choco-dark); }
+  .cart-footer { padding:1.3rem 1.6rem; border-top:2px solid var(--cream-warm); flex-shrink:0; }
+  .cart-total { display:flex; justify-content:space-between; margin-bottom:1.2rem; font-weight:600; font-size:1rem; }
+  .cart-total-num { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--choco-warm); font-weight:700; }
+  .order-form label { display:block; font-size:0.78rem; font-weight:600; color:var(--muted); margin-bottom:0.35rem; text-transform:uppercase; letter-spacing:0.5px; }
+  .order-form input {
+    width:100%; border:1.5px solid var(--border); border-radius:12px;
+    padding:11px 14px; font-family:'Outfit',sans-serif;
+    font-size:16px; /* prevents iOS auto-zoom */
+    margin-bottom:0.9rem; transition:border-color 0.2s; color:var(--text); background:var(--cream);
+  }
+  .order-form input:focus { outline:none; border-color:var(--choco-accent); background:var(--white); }
+  .promo-row { display:flex; gap:0.6rem; margin-bottom:0.9rem; }
+  .promo-input { flex:1; border:1.5px solid var(--border); border-radius:14px; padding:11px 14px; font-family:'Outfit',sans-serif; font-size:16px; color:var(--text); background:var(--cream); }
+  .apply-promo-btn { background:var(--choco-accent); color:var(--white); border:none; border-radius:14px; padding:0 16px; font-family:'Outfit',sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; }
+  .apply-promo-btn:hover { opacity:0.92; }
+  .order-form input:focus { outline:none; border-color:var(--choco-accent); background:var(--white); }
+  .place-order-btn { width:100%; background:var(--choco-dark); color:var(--white); border:none; border-radius:36px; padding:15px; font-family:'Outfit',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:background 0.2s,transform 0.15s; letter-spacing:0.04em; }
+  .place-order-btn:hover { background:var(--choco-accent); transform:translateY(-1px); }
+  .place-order-btn:disabled { background:#ccc; cursor:not-allowed; transform:none; }
+
+  /* ══════════════════════════════════
+     ORDER SUCCESS — stays until dismissed
+  ══════════════════════════════════ */
+  .order-success { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:300; align-items:center; justify-content:center; padding:1.5rem; }
+  .order-success.show { display:flex; }
+  .success-card { background:var(--white); border-radius:24px; padding:2.8rem; text-align:center; max-width:400px; width:100%; box-shadow:0 16px 60px rgba(0,0,0,0.3); animation:popIn 0.3s cubic-bezier(0.22,1,0.36,1); }
+  .success-check { width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,var(--choco-dark),var(--choco-accent)); margin:0 auto 1.3rem; display:flex; align-items:center; justify-content:center; }
+  .success-check svg { color:white; }
+  .success-card h2 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:900; color:var(--choco-dark); margin-bottom:0.4rem; }
+  .success-card .sub { color:var(--muted); font-size:0.88rem; margin-bottom:1.3rem; font-weight:300; }
+  .order-id-box { background:var(--cream-warm); border-radius:14px; padding:1.2rem 1.6rem; margin:0 0 1.2rem; border:1.5px dashed var(--choco-accent); }
+  .order-id-label { font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px; }
+  .order-id-val { font-family:'Cormorant Garamond',serif; font-size:2.2rem; color:var(--choco-dark); font-weight:900; letter-spacing:2px; }
+  .eta-row { display:flex; align-items:center; justify-content:center; gap:8px; color:var(--muted); font-size:0.88rem; margin-bottom:1.3rem; }
+  .eta-row strong { color:var(--choco-dark); font-weight:700; }
+  .eta-dot { width:8px; height:8px; border-radius:50%; background:#22C55E; animation:pulse 1.5s infinite; }
+  .success-name { color:var(--choco-warm); font-size:0.88rem; font-weight:600; margin-bottom:0.75rem; }
+  .invoice-download {
+    display: inline-block;
+    margin: 0 0 1.2rem;
+    font-weight: 800;
+    color: #1c13cc;
+    text-decoration: underline;
+    text-decoration-color: #5637f3;
+    background: transparent;
+    border: none
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+  }
+  .invoice-download:hover { opacity: 0.9; }
+  .cart-discount { color: var(--choco-accent); font-size: 0.9rem; margin-top: 0.4rem; font-weight: 600; }
+  .offer-status { margin: 0.8rem 0 1rem; padding: 1rem 1rem 0.9rem; border-radius: 18px; background: #fff4ea; border: 1px solid rgba(194,57,20,0.14); }
+  .offer-status-title { font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; color: #9a2e11; margin-bottom: 0.4rem; }
+  .offer-status-text { font-size: 0.88rem; line-height: 1.55; color: #3f1f12; }
+
+  /* The main action button — "Order Recorded — Go Back" */
+  .success-close {
+    background: var(--choco-dark); color: var(--white); border: none; border-radius: 32px;
+    padding: 13px 28px; font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; transition: background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px; margin: 0 auto;
+  }
+  .success-close:hover { background: var(--choco-accent); }
+  .success-close:disabled { background: #aaa; cursor: not-allowed; }
+  .sheets-note { font-size:0.73rem; color:var(--muted); margin-top:0.8rem; line-height:1.5; min-height:1.2em; }
+
+  /* ── TOAST ── */
+  .toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(80px); background:var(--choco-dark); color:var(--white); padding:11px 24px; border-radius:32px; font-size:0.88rem; font-weight:500; z-index:400; transition:transform 0.3s cubic-bezier(0.22,1,0.36,1); pointer-events:none; white-space:nowrap; box-shadow:0 6px 24px rgba(0,0,0,0.3); border:1px solid rgba(196,123,58,0.3); }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+
+  /* ── FOOTER ── */
+  footer { background:var(--choco-dark); color:rgba(255,255,255,0.5); text-align:center; padding:2rem; font-size:0.82rem; line-height:1.8; border-top:1px solid rgba(255,255,255,0.08); }
+  footer strong { color:var(--white); font-weight:600; }
+  footer span { color:var(--choco-accent); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.6s ease,transform 0.6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width:768px) {
+    .hero { grid-template-columns:1fr; min-height:auto; }
+    .hero-left { padding:3rem 1.5rem 2rem; }
+    .hero-right { display:none; }
+    .about-inner { grid-template-columns:1fr; }
+    .about-img { order:2; margin-top:2rem; }
+    .stats-bar { gap:0; }
+    .stat-item { min-width:50%; }
+    .hero-offer-popup { bottom:1rem; right:1rem; max-width:240px; }
+  }
+  @media (max-width:480px) {
+    nav { padding:0 1.2rem; }
+    .hero-left { padding:2.5rem 1.2rem 2rem; }
+    .section-wrap { padding:3rem 1.2rem; }
+    .success-card { padding:2rem 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a class="nav-logo" href="#">
+   <div class="logo-img-wrap">
+     <img src="https://i.postimg.cc/tgRqcBb3/singlebuckslogo.png" alt="Singlebucks"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+     <div class="logo-placeholder" style="display:none"></div>
+   </div>
+
+   <div class="nav-brand-wrap">
+     <span class="nav-brand">SINGLE<span>BUCKS</span></span>
+     <span class="nav-tagline">COLD COFFEE & CUPCAKES</span>
+   </div>
+ </a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li>
+      <button class="nav-offers-btn" onclick="openOffers()">
+        <span class="offer-dot"></span>Offers
+      </button>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-cart" onclick="openCart()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Cart
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile secondary nav -->
+<div class="mobile-nav-bar">
+  <a href="#menu">Menu</a>
+  <a href="#how">How It Works</a>
+  <a href="#about">About Us</a>
+  <button class="mobile-offers-btn" onclick="openOffers()">
+    <span style="width:6px;height:6px;border-radius:50%;background:white;display:inline-block"></span>
+    Offers
+  </button>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Now Serving at SUKOON 2026@HCU Stall No.12</div>
+    <h1>Sip into<br><em>Something</em><br>Special</h1>
+    <p class="hero-sub">Handcrafted cold coffees, iced brews &amp; fresh-baked cupcakes — brewed with love at the University of Hyderabad.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Order Now</button>
+      <button class="btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Our Story</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-frame">
+      <img src="https://i.postimg.cc/B6qqdMGB/e3be2bfb-f197-4294-a5cf-8ae43211ae9f-removebg-preview.png" alt="Cold Coffee" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="hero-img-placeholder" style="display:none">
+        <div class="img-icon"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <p>Place your hero<br>product photo here</p>
+      </div>
+    </div>
+    <div class="hero-float-card">
+      <div class="float-dot"></div>
+      <div><div class="float-text">Ready to order!</div><div class="float-sub">Freshly made on the spot</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats-bar reveal">
+  <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">Menu Items</div></div>
+  <div class="stat-item"><div class="stat-num">5 min</div><div class="stat-label">Avg Wait</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Fresh Made</div></div>
+  <div class="stat-item"><div class="stat-num">UoHyd</div><div class="stat-label">Exclusive</div></div>
+</div>
+
+<!-- ═══ MENU ═══ -->
+<div class="section-wrap" id="menu">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">What We Serve</span>
+    <h2>Our Menu</h2>
+    <p>Cold, iced, flavoured or frosted — pick your perfect sip or bite.</p>
+  </div>
+  <div class="tabs reveal">
+    <button class="tab-btn active" onclick="filterMenu('all',this)">All Items</button>
+    <button class="tab-btn" onclick="filterMenu('iced-coffee',this)">Brew / Iced Coffee</button>
+    <button class="tab-btn" onclick="filterMenu('cold-coffee',this)">Cold Coffee</button>
+    <button class="tab-btn" onclick="filterMenu('frappe',this)">Frappe</button>
+    <button class="tab-btn" onclick="filterMenu('cupcake',this)">Cupcakes</button>
+  </div>
+  <div class="menu-grid" id="menuGrid"></div>
+  <div class="choose-section reveal" style="margin-top:3rem; padding:2rem; background:rgba(196,123,58,0.08); border-radius:24px; border:1px solid rgba(196,123,58,0.16);">
+    <div class="section-header" style="text-align:left; margin-bottom:1.4rem;">
+      <span class="section-eyebrow">Why Choose Us</span>
+      <h2 style="font-size:2rem; margin-top:0.6rem;">Perfect Chill Drinks Every Time</h2>
+      <p style="max-width:760px;">Premium taste, affordable prices, freshly made cold coffees and cupcakes designed to keep you cool and satisfied.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem;">
+      <div style="background:white; border-radius:16px; padding:1rem 1.2rem; box-shadow:var(--shadow); font-weight:600;">✔ Premium Taste</div>
+      <div style="background:white; border-radius:16px; padding:1rem 1.2rem; box-shadow:var(--shadow); font-weight:600;">✔ Affordable Prices</div>
+      <div style="background:white; border-radius:16px; padding:1rem 1.2rem; box-shadow:var(--shadow); font-weight:600;">✔ Freshly Made</div>
+      <div style="background:white; border-radius:16px; padding:1rem 1.2rem; box-shadow:var(--shadow); font-weight:600;">✔ Perfect Chill Drinks</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<div class="how-section" id="how">
+  <div class="how-inner">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">Simple Process</span>
+      <h2>How It Works</h2>
+      <p>From menu to cup in four easy steps</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal" style="transition-delay:.05s"><div class="step-num">1</div><h4>Browse Menu</h4><p>Pick your favourites from our carefully curated selection</p></div>
+      <div class="step reveal" style="transition-delay:.15s"><div class="step-num">2</div><h4>Add to Order</h4><p>Select items and adjust quantities in your cart</p></div>
+      <div class="step reveal" style="transition-delay:.25s"><div class="step-num">3</div><h4>Enter Your Name</h4><p>So we know exactly who to call when it's ready</p></div>
+      <div class="step reveal" style="transition-delay:.35s"><div class="step-num">4</div><h4>Collect &amp; Enjoy</h4><p>Show your Order ID at the counter and savour every sip</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<div class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-img reveal">
+      <div class="about-img-ph">
+        <img src="https://i.postimg.cc/B6qqdMGB/e3be2bfb-f197-4294-a5cf-8ae43211ae9f-removebg-preview.png" alt="Singlebucks Stall" onerror="this.style.display='none';this.previousElementSibling.style.display='flex'">
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <span class="section-eyebrow">Our Story</span>
+      <h2>We Are<br><span>Singlebucks</span></h2>
+      <p>Born at the University of Hyderabad college fest @SUKOON 2026, Singlebucks is everything coffee should be — bold, smooth and made with genuine care. We believe a great cold coffee can turn any campus moment into a memory.</p>
+      <p>From classic cold brews to indulgent flavoured coffees and moist cupcakes, every item is crafted fresh at our stall — no compromises, no shortcuts.</p>
+      <div class="about-pills">
+        <span class="pill">Freshly Made</span>
+        <span class="pill">Cold &amp; Iced</span>
+        <span class="pill">UoHyd Fest</span>
+        <span class="pill">Cupcakes</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <strong>Singlebucks</strong> — Cold Coffee &amp; Cupcakes<br>
+  <span>Sukoon 2026 @HCU Stall No.12</span> &nbsp;|&nbsp; Crafted with care & 🫰💓
+</footer>
+
+<!-- ═══ CART SIDEBAR ═══ -->
+<div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Order</h3>
+      <button class="close-btn" onclick="closeCart()">&#x2715;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <div class="empty-bag"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+        <p>Nothing here yet.<br>Add something delicious!</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-total"><span>Total</span><span class="cart-total-num" id="cartTotal">&#x20B9;0</span></div>
+      <div class="cart-discount" id="cartDiscount"></div>
+      <div class="order-form" id="orderForm" style="display:none">
+        <label>Your Name *</label>
+        <input type="text" id="customerName" placeholder="e.g. Priya Sharma" autocomplete="name" />
+        <label>Phone (optional)</label>
+        <input type="tel" id="customerPhone" placeholder="e.g. 9876543210" autocomplete="tel" inputmode="numeric" />
+        <label>Promo Code</label>
+        <div class="promo-row">
+          <input class="promo-input" type="text" id="promoCodeInput" placeholder="Enter promo code" autocomplete="off" />
+          <button class="apply-promo-btn" type="button" onclick="applyPromoCode()">Apply</button>
+        </div>
+        <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()">Confirm Order &rarr;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ORDER SUCCESS MODAL ═══ -->
+<div class="order-success" id="successModal">
+  <div class="success-card">
+    <div class="success-check">
+      <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Order Confirmed!</h2>
+    <p class="sub">Note & Show this to our counter</p>
+    <div class="order-id-box">
+      <div class="order-id-label">Your Order ID</div>
+      <div class="order-id-val" id="displayOrderId">SB-001</div>
+    </div>
+    <div class="eta-row"><div class="eta-dot"></div>Ready in approx. <strong id="displayEta">1 minutes</strong></div>
+    <div class="success-name" id="displayName"></div>
+    <button class="invoice-download" id="downloadInvoiceBtn" onclick="downloadInvoice()" type="button">Download invoice</button>
+    <button class="success-close" id="successCloseBtn" onclick="closeSuccess()">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 00-4-4H4"/></svg>
+      Order Recorded &mdash; Go Back
+    </button>
+    <p class="sheets-note" id="sheetsStatus"></p>
+  </div>
+</div>
+
+<!-- ═══ OFFERS MODAL ═══ -->
+<div class="offers-overlay" id="offersOverlay" onclick="if(event.target===this)closeOffers()">
+  <div class="offers-panel">
+    <div class="offers-panel-head">
+      <h3>Today's <span>Offers</span></h3>
+      <button class="offers-close-btn" onclick="closeOffers()">&#x2715;</button>
+    </div>
+    <div class="offers-list">
+      <div class="offer-card">
+        <div class="offer-tag">3+1<small>Free</small></div>
+        <div class="offer-info">
+          <h4>3 Coffee Offer</h4>
+          <p>Order any three coffees and get one iced coffee for free. The free iced coffee is added automatically when eligible.</p>
+          <span class="offer-code">SBFEST3</span>
+        </div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-tag">5%<small>OFF</small></div>
+        <div class="offer-info">
+          <h4>2 Coffee + 1 Cupcake</h4>
+          <p>Order two coffees and one cupcake to get 5% off your total bill. The discount is applied automatically.</p>
+          <span class="offer-code">CUP5</span>
+        </div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-tag">Singles<small>Offer</small></div>
+        <div class="offer-info">
+          <h4>Free Flavour Upgrade</h4>
+          <p>Order a Classic Cold Coffee and upgrade to any flavoured variant absolutely free, today only.</p>
+          <span class="offer-code">UPGRADE</span>
+        </div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-tag">15%<small>OFF</small></div>
+        <div class="offer-info">
+          <h4>Group Order Discount</h4>
+          <p>Ordering for 3 or more? Show this to our counter and we'll knock 15% off the total bill.</p>
+          <span class="offer-code">GROUP15</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HERO OFFER POPUP (floating, dismissible) ═══ -->
+<div class="hero-offer-popup" id="heroOfferPopup">
+  <div class="popup-head">
+    <span>Limited Offer</span>
+    <button class="popup-close" onclick="dismissHeroPopup()">&#x2715;</button>
+  </div>
+  <div class="popup-body">
+    <h4>Buy 3 Get 1 iced Free!</h4>
+    <p>Order any three coffees and the fourth iced coffee is on us. Only at the Sukoon stall today.</p>
+  </div>
+  <button class="popup-cta" onclick="openOffers()">See All Offers &rarr;</button>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast">Added to order</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+// ═══ GOOGLE SHEETS URL ═══
+const SHEETS_URL = "https://script.google.com/macros/s/AKfycbzmHOCRi5-YZDsI2wHnQmFx70uyz-h3X5Fkgo4zT_4BD6n6Zq6_L9pylCT87eJ4uDo6/exec";
+
+// ═══ MENU DATA ═══
+const menuItems = [
+  {id:1,  name:"CrèmeCafé Classic Cold Coffee",  desc:"Rich espresso blended with chilled milk and ice. The original cold coffee favourite.",             price:80,  cat:"cold-coffee", img:"https://i.postimg.cc/B6qqdMGB/e3be2bfb-f197-4294-a5cf-8ae43211ae9f-removebg-preview.png", badge:""},
+  {id:2,  name:"Caramel Cold Coffee",  desc:"Sweet caramel drizzled over our signature cold coffee base for a creamy finish.",                         price:95,  cat:"cold-coffee", img:"", badge:""},
+  {id:3,  name:"Belgian Chocolate / Mocha Cold Coffee",    desc:"Chocolate and coffee fused in a smooth, indulgent cold coffee blend.",                       price:105,  cat:"cold-coffee", img:"", badge:""},
+  {id:4,  name:"Dark Fantasy / Oreo Cold Coffee", desc:"Cookies, cream and coffee meet in a richly layered cold coffee treat.",                 price:105,  cat:"cold-coffee", img:"", badge:"Popular"},
+  {id:5,  name:"Hazelnut Cold Coffee",  desc:"Toasty hazelnut notes balanced with chilled coffee and milk.",                         price:100,  cat:"cold-coffee", img:"", badge:""},
+  {id:6,  name:"Butterscotch Cold Coffee",  desc:"Sweet butterscotch syrup folded into our creamy cold coffee base.",                         price:100,  cat:"cold-coffee", img:"", badge:""},
+  {id:7,  name:"Double Chocolate Cold Coffee",  desc:"Intense chocolate cold coffee made for chocoholics.",                         price:110,  cat:"cold-coffee", img:"", badge:"New"},
+  {id:8,  name:"Classic Cold Brew",       desc:"Smooth cold brew coffee served over ice for a clean, refreshing sip.",                          price:80,  cat:"iced-coffee", img:"", badge:""},
+  {id:9,  name:"Iced Americano",       desc:"Bold espresso poured over ice for a crisp and powerful iced coffee.",                          price:70,  cat:"iced-coffee", img:"https://i.postimg.cc/8CBxWGrz/Screenshot-2026-04-05-221510.png", badge:""},
+  {id:10, name:"Iced Latte",           desc:"Espresso and cold milk over ice — creamy, balanced and refreshing.",                           price:85,  cat:"iced-coffee", img:"", badge:""},
+  {id:11, name:"Iced Mocha",     desc:"Chocolate, espresso and milk poured over ice for a sweet chilled mocha.",                       price:100,  cat:"iced-coffee", img:"", badge:"Fan Fav"},
+  {id:12, name:"Iced Cappuccino",     desc:"Creamy iced cappuccino with espresso foam and a cool finish.",                       price:90,  cat:"iced-coffee", img:"", badge:""},
+  {id:13, name:"Classic Coffee Frappe",  desc:"Blended ice, coffee and milk for a smooth frappe experience.",                         price:110,  cat:"frappe", img:"", badge:""},
+  {id:14, name:"Belgian Chocolate / Mocha Frappe",  desc:"Chocolate frappe with rich mocha flavour, topped with whipped cream.",                         price:120,  cat:"frappe", img:"", badge:""},
+  {id:15, name:"Caramel Frappe",  desc:"Caramel blended with chilled coffee and ice for a sweet frappe treat.",                         price:115,  cat:"frappe", img:"", badge:""},
+  {id:16, name:"Oreo Frappe",  desc:"Creamy frappe studded with Oreo pieces and chocolatey crunch.",                         price:120,  cat:"frappe", img:"", badge:""},
+  {id:17, name:"Classic Cupcake",    desc:"Soft vanilla cupcake topped with a light buttercream swirl.",                   price:55,  cat:"cupcake",     img:"", badge:""},
+  {id:18, name:"Chocolate Cupcake",    desc:"Moist chocolate sponge topped with a thick, fudgy frosting.",                   price:60,  cat:"cupcake",     img:"", badge:""},
+  {id:19, name:"Red Velvet Cupcake",   desc:"Striking crimson crumb with tangy cream cheese frosting.",                           price:70,  cat:"cupcake",     img:"", badge:"Special"},
+  {id:20, name:"Oreo / Dark Fantasy Cupcake",         desc:"Chocolate cupcake loaded with Oreo cream frosting and crunchy toppings.",                         price:70,  cat:"cupcake",     img:"", badge:"New"},
+  {id:21, name:"Cream Cupcake",         desc:"Delicate sponge topped with smooth cream frosting for a light treat.",                         price:60,  cat:"cupcake",     img:"", badge:""},
+];
+
+let cart = [];
+let orderCounter = parseInt(localStorage.getItem('sbCount') || '0');
+let lastOrderData = null;
+let activePromoCode = '';
+const INVOICE_LOGO_URL = 'https://i.postimg.cc/tgRqcBb3/singlebuckslogo.png';
+const INVOICE_SIGNATURE_URL = 'https://i.postimg.cc/CMWvS47s/Screenshot-2026-04-06-012627.png';
+
+// ─── MENU ────────────────────────────────────────────────
+function filterMenu(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu(cat);
+}
+function renderMenu(cat = 'all') {
+  const grid = document.getElementById('menuGrid');
+  const items = cat === 'all' ? menuItems : menuItems.filter(i => i.cat === cat);
+  grid.innerHTML = items.map((item, idx) => `
+    <div class="menu-card" style="animation-delay:${idx * 0.06}s">
+      <div class="menu-card-img">
+        ${item.img
+          ? `<img src="${item.img}" alt="${item.name}" loading="lazy">`
+          : `<div class="img-placeholder"><div class="ph-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Add photo</span></div>`}
+        ${item.badge ? `<span class="badge ${item.badge==='Popular'||item.badge==='Fan Fav'?'popular':''}">${item.badge}</span>` : ''}
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">${item.name}</div>
+        <div class="menu-card-desc">${item.desc}</div>
+        <div class="menu-card-footer">
+          <span class="price">&#x20B9;${item.price}</span>
+          <button class="add-btn" onclick="addToCart(${item.id})">+ Add</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ─── CART ────────────────────────────────────────────────
+function addToCart(id) {
+  const item = menuItems.find(i => i.id === id);
+  const ex = cart.find(c => c.id === id);
+  if (ex) ex.qty++; else cart.push({...item, qty:1});
+  updateCartUI();
+  showToast(item.name + ' added to order');
+  const badge = document.getElementById('cartBadge');
+  badge.classList.remove('bump'); void badge.offsetWidth; badge.classList.add('bump');
+}
+
+function applyOfferRules(items, code = '') {
+  const coffeeCats = ['cold-coffee', 'iced-coffee', 'frappe'];
+  const baseItems = items.map(item => ({...item}));
+  const coffeeQty = baseItems.reduce((sum, item) => sum + (coffeeCats.includes(item.cat) ? item.qty : 0), 0);
+  const cupcakeQty = baseItems.reduce((sum, item) => sum + (item.cat === 'cupcake' ? item.qty : 0), 0);
+  const subtotal = baseItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const result = {
+    displayItems: baseItems,
+    subtotal,
+    discount: 0,
+    total: subtotal,
+    code: '',
+    message: code ? 'This code is not eligible for your current cart. Check the offer requirements.' : 'Enter a promo code to apply offers.',
+    offerEligible: false,
+  };
+
+  if (!code) {
+    return result;
+  }
+
+  if (code === 'SBFEST3') {
+    if (coffeeQty >= 3) {
+      result.offerEligible = true;
+      result.code = 'SBFEST3';
+      result.message = 'Great! Promo applied — add 3 coffees and get 1 iced coffee free.';
+      result.displayItems = [...baseItems, { id: 0, name: 'Free Iced Coffee (Offer)', qty: 1, price: 0, cat: 'iced-coffee', img: '', offer: true }];
+    }
+  } else if (code === 'CUP5') {
+    if (coffeeQty >= 2 && cupcakeQty >= 1) {
+      result.offerEligible = true;
+      result.code = 'CUP5';
+      result.discount = Math.round(subtotal * 0.05);
+      result.total = subtotal - result.discount;
+      result.message = '5% off applied for 2 coffees + 1 cupcake. Enjoy the discount on your total.';
+    }
+  } else {
+    result.message = 'Promo code not recognized. Try SBFEST3 or CUP5.';
+  }
+
+  return result;
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const offerResult = applyOfferRules(cart, activePromoCode);
+  document.getElementById('cartBadge').textContent = count;
+  document.getElementById('cartTotal').textContent = '₹' + offerResult.total;
+  const itemsEl = document.getElementById('cartItems');
+  const formEl  = document.getElementById('orderForm');
+  const discountEl = document.getElementById('cartDiscount');
+
+  if (cart.length === 0) {
+    itemsEl.innerHTML = `<div class="cart-empty"><div class="empty-bag"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><p>Nothing here yet.<br>Add something delicious!</p></div>`;
+    formEl.style.display = 'none';
+    discountEl.textContent = '';
+  } else {
+    itemsEl.innerHTML = offerResult.displayItems.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-thumb">${item.img ? `<img src="${item.img}" alt="${item.name}">` : `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${item.price === 0 ? 'FREE' : `&#x20B9;${item.price} × ${item.qty} = &#x20B9;${item.price * item.qty}`}</div>
+        </div>
+        ${item.offer ? '' : `<div class="qty-controls"><button class="qty-btn" onclick="changeQty(${item.id},-1)">&minus;</button><span class="qty-val">${item.qty}</span><button class="qty-btn" onclick="changeQty(${item.id},1)">+</button></div>`}
+      </div>`).join('');
+    formEl.style.display = 'block';
+    if (offerResult.discount > 0) {
+      discountEl.textContent = '5% offer applied!';
+    } else if (offerResult.code === 'SBFEST3') {
+      discountEl.textContent = 'Iced coffee free!';
+    } else {
+      discountEl.textContent = '';
+    }
+  }
+}
+
+function applyPromoCode() {
+  const input = document.getElementById('promoCodeInput');
+  if (!input) return;
+  activePromoCode = input.value.trim().toUpperCase();
+  const offerResult = applyOfferRules(cart, activePromoCode);
+  if (offerResult.offerEligible) {
+    if (offerResult.discount > 0) {
+      showToast('5% offer applied!');
+    } else if (offerResult.code === 'SBFEST3') {
+      showToast('Iced coffee free!');
+    }
+  } else {
+    showToast(offerResult.message);
+  }
+  updateCartUI();
+}
+
+function changeQty(id, delta) {
+  const idx = cart.findIndex(c => c.id === id);
+  if (idx === -1) return;
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  updateCartUI();
+}
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+}
+function closeCart() {
+  if (document.activeElement) document.activeElement.blur();
+  document.getElementById('cartOverlay').classList.remove('open');
+}
+
+// ─── KEYBOARD SCROLL FIX ─────────────────────────────────
+// When a text input is focused (keyboard pops up), scroll the
+// confirm button into view so it isn't hidden behind the keyboard.
+function scrollBtnIntoView() {
+  setTimeout(() => {
+    const btn = document.getElementById('placeOrderBtn');
+    if (btn && document.getElementById('cartOverlay').classList.contains('open')) {
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, 400); // wait for keyboard animation to finish
+}
+document.addEventListener('DOMContentLoaded', () => {
+  ['customerName','customerPhone'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('focus', scrollBtnIntoView);
+  });
+});
+
+// ─── PLACE ORDER ─────────────────────────────────────────
+function getETA() {
+  const n = cart.reduce((s,i) => s + i.qty, 0);
+  if (n <= 2) return '2 minutes';
+  if (n <= 4) return '4 minutes';
+  return ' 5 minutes';
+}
+
+async function placeOrder() {
+  const name = document.getElementById('customerName').value.trim();
+  if (!name) { showToast('Please enter your name first'); return; }
+
+  const btn = document.getElementById('placeOrderBtn');
+  const closeBtn = document.getElementById('successCloseBtn');
+  btn.disabled = true; btn.textContent = 'Placing Order...';
+
+  orderCounter++;
+  localStorage.setItem('sbCount', orderCounter);
+  const orderId  = 'SB-' + String(orderCounter).padStart(3,'0');
+  const eta      = getETA();
+  const offerResult = applyOfferRules(cart, activePromoCode);
+  const total    = offerResult.total;
+  const itemsStr = offerResult.displayItems.map(i => `${i.name} x${i.qty}`).join(', ');
+  const phone    = document.getElementById('customerPhone').value.trim();
+  const time     = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  const invoiceItems = offerResult.displayItems.map(i => ({ name: i.name, qty: i.qty, price: i.price }));
+
+  document.getElementById('displayOrderId').textContent = orderId;
+  document.getElementById('displayEta').textContent = eta;
+  document.getElementById('displayName').textContent = 'For: ' + name;
+  document.getElementById('sheetsStatus').textContent = '';
+
+  lastOrderData = { orderId, eta, name, phone: phone || 'N/A', time, total, discount: offerResult.discount, offerCode: offerResult.code, items: invoiceItems };
+
+  // Disable close button until order is recorded
+  closeBtn.disabled = true;
+  closeBtn.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Recording order...`;
+
+  // Close keyboard then cart, show modal
+  if (document.activeElement) document.activeElement.blur();
+  closeCart();
+  document.getElementById('successModal').classList.add('show');
+
+  // Send to Google Sheets
+  const sheetsNote = document.getElementById('sheetsStatus');
+  if (SHEETS_URL && SHEETS_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    try {
+      await fetch(SHEETS_URL, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({serial:orderCounter, orderId, name, phone:phone||'N/A', items:itemsStr, total:'₹'+total, time, status:'Pending'})
+      });
+      sheetsNote.textContent = 'Saved to Google Sheets';
+    } catch(e) {
+      sheetsNote.textContent = 'Sheet sync failed — note order manually.';
+    }
+  } else {
+    sheetsNote.textContent = 'Google Sheets not configured yet.';
+  }
+
+  // Enable close button with final label
+  closeBtn.disabled = false;
+  closeBtn.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 00-4-4H4"/></svg> Order Recorded &mdash; Go Back`;
+
+  cart = [];
+  updateCartUI();
+  btn.disabled = false; btn.textContent = 'Confirm Order →';
+}
+
+// Modal only closes when button is explicitly clicked — never auto-dismisses
+function closeSuccess() {
+  document.getElementById('successModal').classList.remove('show');
+  document.getElementById('customerName').value = '';
+  document.getElementById('customerPhone').value = '';
+}
+
+async function downloadInvoice() {
+  const data = lastOrderData;
+  if (!data) {
+    showToast('No invoice available yet');
+    return;
+  }
+  const { jsPDF } = window.jspdf || {};
+  if (!jsPDF) {
+    showToast('Invoice library not loaded');
+    return;
+  }
+
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  let y = 44;
+  const currencyPrefix = 'Rs';
+
+  try {
+    const logoData = await loadImageDataURL(INVOICE_LOGO_URL);
+    if (logoData) {
+      doc.addImage(logoData, 'PNG', 40, 34, 57, 57);
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Single Bucks', 118, y + 6);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Stall no.12 Sukoon2026@HCU', 118, y + 26);
+      y += 44;
+    } else {
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Single Bucks', 40, y);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      y += 24;
+      doc.text('Stall no.12 Sukoon2026@HCU', 40, y);
+    }
+  } catch (e) {
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Single Bucks', 40, y);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    y += 24;
+    doc.text('Stall no.12 Sukoon2026@HCU', 40, y);
+  }
+
+  y += 24;
+  doc.text(`Order ID: ${data.orderId}`, 40, y);
+  y += 16;
+  doc.text(`Customer: ${data.name}`, 40, y);
+  y += 16;
+  if (data.phone) {
+    doc.text(`Phone: ${data.phone}`, 40, y);
+    y += 16;
+  }
+  doc.text(`Time: ${data.time}`, 40, y);
+  y += 16;
+  doc.text(`ETA: ${data.eta}`, 40, y);
+  y += 24;
+
+  doc.setFont('helvetica', 'bold');
+  doc.text('Item', 40, y);
+  doc.text('Qty', 340, y);
+  doc.text('Price', 520, y, { align: 'right' });
+  y += 10;
+  doc.setLineWidth(0.5);
+  doc.line(40, y, 520, y);
+  y += 18;
+  doc.setFont('helvetica', 'normal');
+
+  data.items.forEach(item => {
+    const lines = doc.splitTextToSize(item.name, 260);
+    doc.text(lines, 40, y);
+    doc.text(String(item.qty), 340, y);
+    doc.text(`${currencyPrefix} ${item.price * item.qty}`, 520, y, { align: 'right' });
+    y += lines.length * 16 + 12;
+    if (y > 760) {
+      doc.addPage();
+      y = 44;
+    }
+  });
+
+  y += 4;
+  doc.setFont('helvetica', 'bold');
+  doc.text(`Total: ${currencyPrefix} ${data.total}`, 40, y);
+  y += 28;
+
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Authorized signatary of Singlebucks', 40, y);
+  y += 18;
+
+  const sigData = await loadImageDataURL(INVOICE_SIGNATURE_URL);
+  if (sigData) {
+    const sigWidth = 160;
+    const sigHeight = 60;
+    if (y + sigHeight > 760) {
+      doc.addPage();
+      y = 44;
+    }
+    doc.addImage(sigData, 'PNG', 40, y, sigWidth, sigHeight);
+    y += sigHeight + 12;
+  }
+
+  doc.save(`singlebucks-invoice-${data.orderId}.pdf`);
+}
+
+async function loadImageDataURL(url) {
+  try {
+    const response = await fetch(url, { mode: 'cors' });
+    if (!response.ok) return null;
+    const blob = await response.blob();
+    const img = await createImageBitmap(blob);
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    return canvas.toDataURL('image/png');
+  } catch (e) {
+    return null;
+  }
+}
+
+// ─── OFFERS ──────────────────────────────────────────────
+function openOffers()  { document.getElementById('offersOverlay').classList.add('open'); }
+function closeOffers() { document.getElementById('offersOverlay').classList.remove('open'); }
+function dismissHeroPopup() { document.getElementById('heroOfferPopup').classList.add('hidden'); }
+
+// ─── TOAST ───────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ─── SCROLL REVEAL ───────────────────────────────────────
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ─── INIT ─────────────────────────────────────────────────
+renderMenu();
+</script>
+</body>
+</html>
